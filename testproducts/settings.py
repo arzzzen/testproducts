@@ -155,3 +155,8 @@ LOGGING = {
         },
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'testproducts.context_processors.my_vars',
+    'django.contrib.auth.context_processors.auth',
+)
