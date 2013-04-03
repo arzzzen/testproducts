@@ -1,0 +1,11 @@
+﻿{% extends "base.html" %}
+{% block content %}
+{% for product in products %}
+<a href="/id{{ product.id }}"><h2>{{ product.title }}</h2></a>
+<p>{{ product.weight }} </p>
+<p>{{ product.height }} </p>
+<p>{{ product.color }} </p>
+<p>{{ product.description }}</p>
+{% endfor %}
+
+{% endblock %}
