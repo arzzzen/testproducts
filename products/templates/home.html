@@ -2,10 +2,27 @@
 {% block content %}
 {% for product in products %}
 <a href="/id{{ product.id }}"><h2>{{ product.title }}</h2></a>
+<p><a href="/edit/id{{ product.id }}">Edit</a></p>
 <p>{{ product.weight }} </p>
 <p>{{ product.height }} </p>
 <p>{{ product.color }} </p>
 <p>{{ product.description }}</p>
 {% endfor %}
-
+<div class="pagination">
+        {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+		{% for page in products.paginator.page_range %}
+			{% if page == products.number %}
+				{{ page }}
+			{% else %}
+				<a href="?page={{ page }}">{{ page }}</a>
+			{% endif %}		
+		{% endfor %}         
+        </span>
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">next</a>
+        {% endif %}
+</div>
 {% endblock %}

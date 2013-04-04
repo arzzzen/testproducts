@@ -1,5 +1,6 @@
 ﻿from django.db import models
 from django.contrib import admin
+from django.forms import ModelForm
 
 class Product(models.Model):
     title = models.CharField(max_length=30)
@@ -10,5 +11,9 @@ class Product(models.Model):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title',)
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
 
 admin.site.register(Product, ProductAdmin)

@@ -1,6 +1,8 @@
 ﻿<title>Products</title>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+{% load static from staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
 
 <body>
 <a href="/"><h1>{{ MY_TITLE }}</h1></a>
