@@ -8,6 +8,7 @@ class Product(models.Model):
     weight = models.IntegerField()
     height = models.IntegerField()
     color = models.CharField(max_length=7)
+    image = models.ImageField(upload_to='images', blank=True, default='images/default.jpg')
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title',)

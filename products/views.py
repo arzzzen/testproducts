@@ -24,7 +24,7 @@ def productid(request, id):
 def productedit(request, id):
     if request.method == 'POST':
         product = Product.objects.get(id = id)
-        form = ProductForm(request.POST, instance = product)
+        form = ProductForm(request.POST, request.FILES, instance = product)
         if form.is_valid():
             form.save()
             return redirect('/id'+id) 

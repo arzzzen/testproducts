@@ -1,28 +1,60 @@
 ﻿{% extends "base.html" %}
 {% block content %}
 {% for product in products %}
-<a href="/id{{ product.id }}"><h2>{{ product.title }}</h2></a>
-<p><a href="/edit/id{{ product.id }}">Edit</a></p>
-<p>{{ product.weight }} </p>
-<p>{{ product.height }} </p>
-<p>{{ product.color }} </p>
-<p>{{ product.description }}</p>
-{% endfor %}
-<div class="pagination">
-        {% if products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="current">
-		{% for page in products.paginator.page_range %}
-			{% if page == products.number %}
-				{{ page }}
-			{% else %}
-				<a href="?page={{ page }}">{{ page }}</a>
-			{% endif %}		
-		{% endfor %}         
-        </span>
-        {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}">next</a>
-        {% endif %}
+<div class="row">
+<div class="span2 text-center">
+{% load thumbnail %}
+<img src="{{ product.image|thumbnail_url:'img' }}"/>
 </div>
+<div class="span7">
+<div class="row-fluid">
+<div class="span3">
+<a href="/id{{ product.id }}"><h4>{{ product.title }}</h4></a>
+</div>
+<div class="span3">
+Weight: {{ product.weight }}
+</div>
+<div class="span3">
+Height: {{ product.height }}
+</div>
+<div class="span3">
+Color: {{ product.color }}
+</div>
+</div>
+<div class="row">
+<div class="span7">
+<p>{{ product.description }}</p>
+{% if user.is_superuser %}
+	<p><a href="/edit/id{{ product.id }}">Edit</a></p>
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+<br>
+{% endfor %}
+<div class="span9" id="pagination">
+<div class="pagination text-center">
+  <ul>
+	{% if products.has_previous %}
+        <li><a href="?page={{ products.previous_page_number }}">Prev</a></li>   
+	{% else %}
+		<li class="disabled"><a href="#">Prev</a></li>   
+    {% endif %}
+    {% for page in products.paginator.page_range %}
+		{% if page == products.number %}
+			<li class="active"><a href="?page={{ page }}">{{ page }}</a></li>	
+		{% else %}
+			<li><a href="?page={{ page }}">{{ page }}</a></li>
+		{% endif %}	
+	{% endfor %}   
+	{% if products.has_next %}
+		<li><a href="?page={{ products.next_page_number }}">Next</a></li>
+	{% else %}
+		<li class="disabled"><a href="#">Next</a></li>   
+    {% endif %}
+  </ul>
+</div>
+</div>
+
 {% endblock %}
