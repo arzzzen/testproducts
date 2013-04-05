@@ -1,4 +1,4 @@
-﻿from django.shortcuts import render_to_response, redirect
+﻿from django.shortcuts import render_to_response, redirect, get_object_or_404
 from products.models import Product, ProductForm
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,13 +22,10 @@ def productid(request, id):
 
 @user_passes_test(lambda u: u.is_superuser)
 def productedit(request, id):
-    if request.method == 'POST':
-        product = Product.objects.get(id = id)
-        form = ProductForm(request.POST, request.FILES, instance = product)
-        if form.is_valid():
-            form.save()
-            return redirect('/id'+id) 
-    else:
-        product = Product.objects.get(id = id)
-        form = ProductForm(instance = product)
+    product = get_object_or_404(Product, id = id)
+    form = ProductForm(request.POST or None, request.FILES or None, instance = product)
+    if form.is_valid():
+        form.save()
+        return redirect('/id'+id) 
+    form = ProductForm(instance = product)
     return render_to_response("edit.html", {'form' : form, 'id' : id,}, RequestContext(request))

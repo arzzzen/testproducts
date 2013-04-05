@@ -17,8 +17,11 @@ Weight: {{ product.weight }}
 <div class="span3">
 Height: {{ product.height }}
 </div>
-<div class="span3">
-Color: {{ product.color }}
+<div class="span1">
+Color:
+</div>
+<div class="span2">
+ <div id="oval" style="background:{{ product.color }}"></div>
 </div>
 </div>
 <div class="row">
@@ -33,6 +36,7 @@ Color: {{ product.color }}
 </div>
 <br>
 {% endfor %}
+<hr>
 <div class="span9" id="pagination">
 <div class="pagination text-center">
   <ul>

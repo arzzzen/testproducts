@@ -1,7 +1,35 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block content %}
 <form enctype="multipart/form-data" action="/edit/id{{ id }}" method="post">{% csrf_token %}
-{{ form.as_p }}
+<div class="row">
+<div class="span9">
+{{ form.title }}
+</div>
+<div class="span9">
+{{ form.image }}
+</div>
+<div class="span1.5">
+{{ form.weight.label_tag }}
+{{ form.weight }}
+</div>
+<div class="span1.5">
+{{ form.height.label_tag }}{{ form.height }}
+</div>
+<div class='span3'>
+{{ form.color.label_tag }}
+{{ form.color }}
+<a class="btn cp1" data-color="rgb(255, 255, 255)">Choose</a>
+</div>
+<div class="span3">
+{{ form.colortwo.label_tag }}{{ form.colortwo }}
+<a class="btn cp2" data-color="rgb(255, 255, 255)">Choose</a>
+</div>
+<div class="span9">
+{{ form.description }}
+</div>
+<div class="span1">
 <input type="submit" value="Save" />
+</div>
+</div>
 </form>
 {% endblock %}
