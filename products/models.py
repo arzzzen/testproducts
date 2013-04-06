@@ -1,7 +1,9 @@
 ﻿from django.db import models
 from django.contrib import admin
-#from django.forms import ModelForm, CharField, Textarea
+from django.core import mail
 from django import forms
+from django.db.models.signals import pre_save, pre_delete, post_save
+from django.dispatch import receiver
 
 class Product(models.Model):
     title = models.CharField(max_length=30)
@@ -24,5 +26,24 @@ class ProductForm(forms.ModelForm):
     image = forms.FileInput()
     class Meta:
         model = Product
+
+def mailsender(msg, product_title):
+    connection = mail.get_connection()
+    connection.open()
+    email1 = mail.EmailMessage('Hello', 'Product "'+product_title+'" '+msg, 'from@example.com',
+                      ['to1@example.com'], connection=connection)
+    email1.send()
+    connection.close()
+
+@receiver(pre_delete, sender=Product)
+def pre_del(sender, instance, **kwargs):
+    mailsender('deleted', instance.title)
+
+@receiver(post_save, sender=Product)
+def post_sv(sender,instance, signal, created, **kwargs):
+    if created:
+        mailsender('created', instance.title)
+    else:
+        mailsender('edited', instance.title)
 
 admin.site.register(Product, ProductAdmin)

@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Arzzzen', 'arzenslim@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -168,3 +168,4 @@ THUMBNAIL_ALIASES = {
         'img': {'size': (140, 140),},
     },
 }
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
