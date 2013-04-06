@@ -5,6 +5,11 @@ from django import forms
 from django.db.models.signals import pre_save, pre_delete, post_save
 from django.dispatch import receiver
 
+class Resp(models.Model):
+    url = models.CharField(max_length=200)
+    method = models.CharField(max_length=10)
+    status_code = models.IntegerField()
+
 class Product(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField()
@@ -47,3 +52,4 @@ def post_sv(sender,instance, signal, created, **kwargs):
         mailsender('edited', instance.title)
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Resp)

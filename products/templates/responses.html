@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Responses from server</h3>
+{% for resp in responses_list %}
+	<p>{{ resp.url }} {{ resp.method }} {{ resp.status_code }}</p>
+{% endfor %}
+{% endblock %}

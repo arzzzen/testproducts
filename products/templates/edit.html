@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block content %}
-<form enctype="multipart/form-data" action="/edit/id{{ id }}" method="post">{% csrf_token %}
+<form id="editForm" enctype="multipart/form-data" action="/edit/id{{ id }}" method="post">{% csrf_token %}
 <div class="row">
 <div class="span9">
 {{ form.title }}
