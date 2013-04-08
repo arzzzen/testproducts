@@ -2,33 +2,49 @@
 {% block content %}
 <a href="/id{{ product.id }}"><h4>{{ product.title }}</h4></a>
 <div class="row">
-<div class="span5 text-center">
-{% load thumbnail %}
-<img src="{% thumbnail product.image 300x300 %}"/>
+	<div class="span5 text-center">
+		{% load thumbnail %}
+		<img src="{% thumbnail product.image 300x300 %}"/>
+	</div>
+	<div class="span4">
+		<div class="row-fluid">
+			<div class="span4">
+				Weight: {{ product.weight }}
+			</div>
+			<div class="span4">
+				Height: {{ product.height }}
+			</div>
+			<div class="span2">
+				Color:
+			</div>
+			<div class="span2">
+				<div id="oval" style="background:{{ product.color }}">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span4">
+				<p>{{ product.description }}</p>
+				{% if user.is_superuser %}
+				<p><a href="/edit/id{{ product.id }}">Edit</a></p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </div>
-<div class="span4">
+<hr>
+<h5>More products</h5>
 <div class="row-fluid">
-<div class="span4">
-Weight: {{ product.weight }}
-</div>
-<div class="span4">
-Height: {{ product.height }}
-</div>
-<div class="span2">
-Color:
-</div>
-<div class="span2">
- <div id="oval" style="background:{{ product.color }}"></div>
-</div>
-</div>
-<div class="row">
-<div class="span4">
-<p>{{ product.description }}</p>
-{% if user.is_superuser %}
-	<p><a href="/edit/id{{ product.id }}">Edit</a></p>
-{% endif %}
-</div>
-</div>
-</div>
+	{% load thumbnail %}
+	{% for product in products %}
+		<div class="span2 text-center">
+			<a href="/id{{ product.id }}">
+				<div style="height:100px">
+					<img src="{% thumbnail product.image 100x100 %}"/>
+				</div>
+				<p>{{ product.title }}</p>
+			</a>
+		</div>
+	{% endfor %}
 </div>
 {% endblock %}

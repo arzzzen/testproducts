@@ -18,8 +18,9 @@ def home(request):
     return render_to_response('home.html', { 'products': products}, RequestContext(request))
 
 def productid(request, id):
+    products = Product.objects.order_by('?')[:6]
     product = Product.objects.get(id = id)
-    return render_to_response("productid.html", { 'product' : product,}, RequestContext(request))
+    return render_to_response("productid.html", { 'product' : product, 'products' : products}, RequestContext(request))
 
 @user_passes_test(lambda u: u.is_superuser)
 def productedit(request, id):
